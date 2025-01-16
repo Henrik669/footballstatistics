@@ -1,7 +1,7 @@
 const express = require('express');
 const mysql = require('mysql');
 const fetch = require('node-fetch');
-require('dotenv').config();
+require('dotenv').config(); // dotenv Modul laden, um Umgebungsvariablen zu verwenden
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -22,13 +22,13 @@ db.connect(err => {
     }
 });
 
-// API-Schlüssel für RapidAPI (ersetzen Sie 'YOUR_RAPIDAPI_KEY' durch Ihren tatsächlichen API-Schlüssel)
-const cfb66d18a1803e7d35fc7cc42bc823c0 = process.env.RAPIDAPI_KEY;
+// API-Schlüssel für RapidAPI
+const RAPIDAPI_KEY = 'cfb66d18a1803e7d35fc7cc42bc823c0';
 
 // Route für Live-Ergebnisse
 app.get('/api/live-scores', async (req, res) => {
     try {
-        const response = await fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures/live', {
+        const response = await fetch('https://api-football-v1.p.rapidapi.com/v3/fixtures?live=all', {
             method: 'GET',
             headers: {
                 'X-RapidAPI-Key': RAPIDAPI_KEY,
