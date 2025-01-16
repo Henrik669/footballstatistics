@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     fetchLiveScores();
+    fetchLeagues();
     fetchHistoricalData();
 });
 
@@ -9,12 +10,27 @@ function fetchLiveScores() {
         .then(data => {
             const liveScoresDiv = document.getElementById('live-scores');
             liveScoresDiv.innerHTML = data.scores.map(score => `
-                <p>${score.match}: ${score.result}</p>
+                <p>${score.match}: ${score.result} (${score.league}, ${score.time} Minuten)</p>
             `).join('');
         })
         .catch(error => {
             console.error('Fehler beim Abrufen der Live-Daten:', error);
             document.getElementById('live-scores').innerHTML = '<p>Fehler beim Abrufen der Live-Daten.</p>';
+        });
+}
+
+function fetchLeagues() {
+    fetch('/api/leagues')
+        .then(response => response.json())
+        .then(data => {
+            const leagueListDiv = document.getElementById('league-list');
+            leagueListDiv.innerHTML = data.leagues.map(league => `
+                <p>${league.name} (${league.country}, Saison ${league.season})</p>
+            `).join('');
+        })
+        .catch(error => {
+            console.error('Fehler beim Abrufen der Liga-Daten:', error);
+            document.getElementById('league-list').innerHTML = '<p>Fehler beim Abrufen der Liga-Daten.</p>';
         });
 }
 
