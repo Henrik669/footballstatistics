@@ -1,0 +1,3 @@
+git add .
+git commit -m "Erweiterung um Live-Ergebnisse und Liga-Übersichten"
+git push origin main
