@@ -1,3 +1,12 @@
+(function () {
+  require('./lib/main').config(
+    Object.assign(
+      {},
+      require('./lib/env-options'),
+      require('./lib/cli-options')(process.argv)
+    )
+  )
+})()
 const express = require('express');
 const mysql = require('mysql');
 const fetch = require('node-fetch');
